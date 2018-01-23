@@ -1,0 +1,151 @@
+# User configuration  
+
+echo ''
+echo '	Oh My Zsh has Loaded. Welcome to Your Terminal.' 
+echo ''
+echo '                 -/+:. '
+echo '                :++++.'
+echo '               /+++/. '
+echo '       .:-::- .+/:-``.::-'
+echo '    .:/++++++/::::/++++++/:`'
+echo '  .:///////////////////////:`'
+echo '  ////////////////////////`'
+echo ' /+++++++++++++++++++++++`' 				
+echo ' /++++++++++++++++++++++/ '
+echo ' /sssssssssssssssssssssss.'
+echo ' :ssssssssssssssssssssssss-'
+echo '  osssssssssssssssssssssssso/`'
+echo '  `syyyyyyyyyyyyyyyyyyyyyyyy+`'
+echo '   `ossssssssssssssssssssss/'
+echo '     :ooooooooooooooooooo+.'
+echo '      `:+oo+/:-..-:/+o+/-'
+echo ''
+echo -e 					"${RED}Current date :$NC " ; date
+echo ''
+echo ''
+
+
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+alias zshconfig=". ~/.zshrc"
+alias android="open -a Android\ Studio"
+alias visual="open -a Visual\ Studio\ Code"
+alias ohmyzsh=". ~/.oh-my-zsh"
+alias subl="open -a Sublime\ Text"		#subl: shortcut to open files in Sublime Text
+alias sublbash="subl ~/.bash_profile"   #sublbash: Open Bash Profile in Sublime Text
+alias reprof=". ~/.bash_profile"
+alias xcode="open -a Xcode"				# xcode: sets shortcut name to open files with Xcode
+alias zshrc="subl ~/.zshrc"				# zshrc: sets shortcut name to open ~/.zshrc in Sublime Text
+alias bashrc="subl ~/.bashrc"			# bashrc: sets shortcut name to open ~/.bashrc in Sublime Text
+alias reprofrc=". ~/.bashrc"
+alias f='open -a Finder ./'              # f:            Opens current directory in MacOS Finder
+alias ~="cd ~"                           # ~:            Go Home
+alias c='clear'                          # c:            Clear terminal display
+alias show_options='shopt'               # Show_options: display bash options settings
+
+
+#   memHogsTop, memHogsPs:  Find memory hogs
+#   -----------------------------------------------------
+    alias memHogsTop='top -l 1 -o rsize | head -20'
+    alias memHogsPs='ps wwaxm -o pid,stat,vsize,rss,time,command | head -10'
+
+#   cpuHogs:  Find CPU hogs
+#   -----------------------------------------------------
+    alias cpu_hogs='ps wwaxr -o pid,stat,%cpu,time,command | head -10'
+
+
+#functions for making dir
+
+mkcd () {
+	mkdir "$1" && cd "$1";
+}
+
+#function to cd into a dir and ls it's contents
+cdls () {
+	cd "$1" && ls; 
+	
+}
+
+#Cursor
+
+#$PS1=" \u@\h \W \t |-> ~";
+#export PS1;
+
+#   ii:  display useful host related informaton
+#   -------------------------------------------------------------------
+    ii() {
+        echo -e "\nYou are logged on ${RED}$HOST"
+        echo -e "\nAdditionnal information:$NC " ; uname -a
+        echo -e "\n${RED}Users logged on:$NC " ; w -h
+        echo -e "\n${RED}Current date :$NC " ; date
+        echo -e "\n${RED}Machine stats :$NC " ; uptime
+        echo -e "\n${RED}Current network location :$NC " ; scselect
+        echo -e "\n${RED}Public facing IP Address :$NC " ;myip
+        #echo -e "\n${RED}DNS Configuration:$NC " ; scutil --dns
+        echo
+    }
+
+#   ---------------------------------------
+#   7. SYSTEMS OPERATIONS & INFORMATION
+#   ---------------------------------------
+
+
+#   cleanupDS:  Recursively delete .DS_Store files
+#   -------------------------------------------------------------------
+    alias cleanupDS="find . -type f -name '*.DS_Store' -ls -delete"
+
+#   finderShowHidden:   Show hidden files in Finder
+#   finderHideHidden:   Hide hidden files in Finder
+#   -------------------------------------------------------------------
+    alias finderShowHidden='defaults write com.apple.finder ShowAllFiles TRUE'
+    alias finderHideHidden='defaults write com.apple.finder ShowAllFiles FALSE'
+
+#   cleanupLS:  Clean up LaunchServices to remove duplicates in the "Open With" menu
+#   -----------------------------------------------------------------------------------
+    alias cleanupLS="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+#    screensaverDesktop: Run a screensaver on the Desktop
+#   -----------------------------------------------------------------------------------
+   # alias screensaverDesktop='/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background'
+
+#   ---------------------------------------
+#   8. WEB DEVELOPMENT
+#   ---------------------------------------
+
+alias apacheEdit='sudo edit /etc/httpd/httpd.conf'      # apacheEdit:       Edit httpd.conf
+alias apacheRestart='sudo apachectl graceful'           # apacheRestart:    Restart Apache
+alias editHosts='sudo edit /etc/hosts'                  # editHosts:        Edit /etc/hosts file
+alias herr='tail /var/log/httpd/error_log'              # herr:             Tails HTTP error logs
+alias apacheLogs="less +F /var/log/apache2/error_log"   # Apachelogs:   Shows apache error logs
+httpHeaders () { /usr/bin/curl -I -L $@ ; }             # httpHeaders:      Grabs headers from web page
+
+#   httpDebug:  Download a web page and show info on what took time
+#   -------------------------------------------------------------------
+    httpDebug () { /usr/bin/curl $@ -o /dev/null -w "dns: %{time_namelookup} connect: %{time_connect} pretransfer: %{time_pretransfer} starttransfer: %{time_starttransfer} total: %{time_total}\n" ; }
+
+
+
+
